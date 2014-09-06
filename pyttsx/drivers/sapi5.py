@@ -16,6 +16,7 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 '''
 #import comtypes.client
+from comtypes.gen import SpeechLib
 import win32com.client
 import pythoncom
 import time
@@ -65,7 +66,12 @@ class SAPI5Driver(object):
         self._tts.Speak(unicode(text), 19)
         
     def speakToFile(self, text, filename):
-        raise NotImplementedError('Not implemented in this driver')
+        stream = win32com.client.Dispatch("SAPI.SpFileStream")
+        stream.Open(filename, SpeechLib.SSFMCreateForWrite)
+        self._tts.AudioOutputStream = stream
+        self._tts.Speak(unicode(text),0)
+        self._tts.AudioOutputStream = None
+        stream.close
 
     def stop(self):
         if not self._speaking:
