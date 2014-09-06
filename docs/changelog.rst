@@ -6,6 +6,8 @@ Version 1.2
 
 * Added pip install instructions to doc.
 * Fixed voice selection to use VoiceLocaleIdentifier on OS X instead of deprecated VoiceLanguage
+* Fixed voice selection to use VoiceLocaleIdentifier on OS X instead of deprecated VoiceLanguage
+* Introduced speakToFile function to driver api to write speech direct to disk as audio file. Support for OS X
 
 Version 1.1
 ~~~~~~~~~~~
